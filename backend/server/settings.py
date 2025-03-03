@@ -31,6 +31,16 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    #email verification
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    
+    'users',
+    'crispy_forms',
+    'crispy_bootstrap4',
+    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -47,6 +57,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
+    'allauth.account.middleware.AccountMiddleware'
 ]
 
 ROOT_URLCONF = 'server.urls'
@@ -100,6 +112,8 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+AUTH_USER_MODEL = 'users.CustomUser'
+
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
@@ -121,3 +135,22 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'  # or 'bootstrap5' for Bootstrap 5
+
+LOGIN_REDIRECT_URL = 'home'
+LOGIN_URL = 'login'
+LOGOUT_REDIRECT_URL = 'logout'
+
+AUTHENTICATION_BACKENDS = ( 'django.contrib.auth.backends.ModelBackend',
+                           'allauth.account.auth_backends.AuthenticationBackend',)
+
+SITE_ID = 1
+
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+
+ACCOUNT_EMAIL_REQUIRED = True
+
+ACCOUNT_AUTHENTICATED_REDIRECT_URL = '/'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
