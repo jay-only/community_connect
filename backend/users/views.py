@@ -3,6 +3,9 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from .forms import CustomUserCreationForm
 
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+
 def register(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
@@ -13,18 +16,18 @@ def register(request):
         form = CustomUserCreationForm()
     return render(request, 'users/register.html', {'form': form})
 
-
-# from django.shortcuts import render, redirect
-# # from django.contrib.auth.decorators import login_required
-# from django.contrib.auth.forms import UserCreationForm
-# from django.contrib import messages
-# from .forms import UserRegisterForm, UserUpdateForm
-
-
-# # Create your views here.
-
 def home(request):
     return render(request, 'users/base.html')
+
+
+
+
+@api_view(["GET"])
+
+def sample_api(request):
+    return Response({"message": "Hello from Django!"})
+
+
 
 # def register(request):
 #     if request.method == 'POST':
